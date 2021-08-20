@@ -7653,13 +7653,12 @@ const analyse = () => __awaiter(void 0, void 0, void 0, function* () {
     yield scan();
 });
 // TODO: Make parts of config configurable
-/* eslint-disable no-useless-escape -- It's not actually useless */
 const config = `
 module.exports = {
 	crawlFrom: '../',
 	globs: ['**/(components|pages)/**/!(*.test|*.spec).@(js|ts)?(x)'],
 	includeSubComponents: true,
-	importedFrom: /^(@guardian\/src-).*/,
+	importedFrom: /^(@guardian\\/src-).*/,
 	getComponentName: ({ imported, moduleName }) => {
 		return moduleName + imported;
 	},
@@ -7669,7 +7668,6 @@ module.exports = {
 	],
 };
 `;
-/* eslint-enable no-useless-escape -- It's not actually useless */
 const writeConfigFile = () => {
     if ((0,external_fs_.existsSync)('.source')) {
         // TODO: Handle this better
