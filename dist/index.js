@@ -7687,7 +7687,7 @@ const scan = () => __awaiter(void 0, void 0, void 0, function* () {
 const analysePackages = () => {
     const components = JSON.parse((0,external_fs_.readFileSync)('.source/output/component-usage.json', 'utf8'));
     const usedPackages = [
-        ...new Set(Object.keys(components).map((component) => component.split('/')[2])),
+        ...new Set(Object.keys(components).map((component) => component.substring(0, component.lastIndexOf('/')))),
     ];
     const packageJson = JSON.parse((0,external_fs_.readFileSync)('package.json', 'utf-8'));
     const allPackages = Object.keys(packageJson.dependencies).filter((pkg) => pkg.startsWith('@guardian/src-'));
@@ -7697,7 +7697,7 @@ const analysePackages = () => {
         usedPackages,
         unusedPackages,
         packageVersions,
-    }));
+    }, null, 2));
 };
 
 ;// CONCATENATED MODULE: ./src/lib/pkg.ts

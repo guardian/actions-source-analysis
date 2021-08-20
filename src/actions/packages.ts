@@ -19,7 +19,9 @@ export const analysePackages = (): void => {
 
 	const usedPackages = [
 		...new Set(
-			Object.keys(components).map((component) => component.split('/')[2]),
+			Object.keys(components).map((component) =>
+				component.substring(0, component.lastIndexOf('/')),
+			),
 		),
 	];
 
@@ -45,10 +47,14 @@ export const analysePackages = (): void => {
 
 	writeFileSync(
 		'.source/output/packages.json',
-		JSON.stringify({
-			usedPackages,
-			unusedPackages,
-			packageVersions,
-		}),
+		JSON.stringify(
+			{
+				usedPackages,
+				unusedPackages,
+				packageVersions,
+			},
+			null,
+			2,
+		),
 	);
 };
