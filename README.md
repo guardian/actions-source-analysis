@@ -1,5 +1,7 @@
 # Source Analysis Action
 
+**🚨 This repository is still under development and is not yet ready for consumption 🚨**
+
 This repository provides a GitHub action which is used to analyse the usage of Source in a project.
 
 ## Tasks
