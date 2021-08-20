@@ -18,8 +18,7 @@ module.exports = {
 		return moduleName + '/' + imported;
 	},
 	processors: [
-		['count-components-and-props', {}],
-		['raw-report', { outputTo: '../.source/source-analysis.json' }],
+		['count-components-and-props', { outputTo: '../.source/source-analysis.json' }],
 	],
 };
 `;
@@ -39,6 +38,5 @@ const writeConfigFile = () => {
 
 const scan = async (): Promise<void> => {
 	info('Running react-scanner');
-	await exec('cat .source/config.js');
 	await exec('npx react-scanner -c .source/config.js');
 };
