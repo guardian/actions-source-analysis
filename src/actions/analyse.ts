@@ -39,5 +39,6 @@ const writeConfigFile = () => {
 
 const scan = async (): Promise<void> => {
 	info('Running react-scanner');
+	await exec('cat .source/config.js');
 	await exec('npx react-scanner -c .source/config.js');
 };
