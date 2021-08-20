@@ -1,0 +1,12 @@
+name: '@guardian/actions-source-analysis'
+description: 'A GitHub action to analyse the usage of Source in a project'
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
+inputs:
+  github-token:
+    description: A GitHub token
+    required: true
+branding:
+  icon: 'package'
+  color: 'gray-dark'

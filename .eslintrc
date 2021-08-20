@@ -1,0 +1,21 @@
+{
+	"root": true,
+	"env": {
+		"node": true
+	},
+	"extends": "@guardian/eslint-config-typescript",
+	"overrides": [
+		{
+			"files": ["*.ts", "*.tsx"],
+			"extends": "@guardian/eslint-config-typescript",
+			"rules": {
+				"@typescript-eslint/no-var-requires": "off" // it's node
+			}
+		}
+	],
+	"settings": {
+		"import/resolver": {
+			"typescript": {}
+		}
+	}
+}
