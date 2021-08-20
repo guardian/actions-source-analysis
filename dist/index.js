@@ -7682,6 +7682,7 @@ const writeConfigFile = () => {
 };
 const scan = () => __awaiter(void 0, void 0, void 0, function* () {
     (0,core.info)('Running react-scanner');
+    yield (0,exec.exec)('cat .source/config.js');
     yield (0,exec.exec)('npx react-scanner -c .source/config.js');
 });
 
