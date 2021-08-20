@@ -35,6 +35,8 @@ jobs:
 
 ```
 
+For a working example, see the [test-source-project](https://github.com/guardian/test-source-project) repository.
+
 ## Component Usage
 
 This part of the action uses [react-scanner](https://github.com/moroshko/react-scanner) to discover which Source components have been used, how many times and what props are utilised. The results are written out to the `.source/output/component-usage.json` file.
