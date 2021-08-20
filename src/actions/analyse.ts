@@ -16,10 +16,7 @@ module.exports = {
 	importedFrom: /^(@guardian\\/src-).*/,
 	getComponentName: ({ imported, moduleName }) => {
 		return moduleName + '\\' + imported;
-	},
-	processors: [
-		['count-components-and-props', { outputTo: '../.source/source-analysis.json' }]
-	],
+	}
 };
 `;
 
