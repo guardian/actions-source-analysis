@@ -5,7 +5,7 @@ This repository provides a GitHub action which is used to analyse the usage of S
 ## Tasks
 
 -   [Measure component usage](#component-usage)
--   [TODO] Check installed packages
+-   [Package usage](#package-usage)
 -   [TODO] Warn if packages not the same version
 -   [TODO] Check if the project has any local components that share names with Source components
 
@@ -55,6 +55,44 @@ This part of the action uses [react-scanner](https://github.com/moroshko/react-s
     "@guardian/src-layout/Container": {
         "instances": 2,
         "props": {}
+    }
+}
+```
+
+## Package Usage
+
+This part of the action compares the packages found by [react-scanner](https://github.com/moroshko/react-scanner) when discovering component use with the ones defined in the `dependencies` section of the `package.json`. It outputs:
+
+-   A list of the packages used in the project
+-   A list of the unused packages (from comparing the used list to everything in the `package.json`)
+-   A object mapping the installed packages to the version string defined in the `package.json`
+
+This output is written to `.source/outputs/package.json`. The following represents an example output:
+
+```json
+{
+    "usedPackages": [
+        "@guardian/src-radio",
+        "@guardian/src-layout",
+        "@guardian/src-brand",
+        "@guardian/src-footer",
+        "@guardian/src-link"
+    ],
+    "unusedPackages": [
+        "@guardian/src-button",
+        "@guardian/src-icons",
+        "@guardian/src-user-feedback"
+    ],
+    "packageVersions": {
+        "@guardian/src-brand": "^3.8.0",
+        "@guardian/src-button": "^3.8.0",
+        "@guardian/src-footer": "^3.8.0",
+        "@guardian/src-foundations": "^3.8.0",
+        "@guardian/src-icons": "^3.8.0",
+        "@guardian/src-layout": "^3.4.0",
+        "@guardian/src-link": "^3.8.0",
+        "@guardian/src-radio": "^3.8.0",
+        "@guardian/src-user-feedback": "^3.8.0"
     }
 }
 ```
