@@ -4,13 +4,6 @@
 
 This repository provides a GitHub action which is used to analyse the usage of Source in a project.
 
-## Tasks
-
--   [Measure component usage](#component-usage)
--   [Package usage](#package-usage)
--   [TODO] Warn if packages not the same version
--   [TODO] Check if the project has any local components that share names with Source components
-
 ## Use
 
 To use this action, add a workflow file to your project which references the action in a `uses` statement. Following that step, you should also use the `actions/upload-artifact` action to upload the contents of the `.source/output` directory. For example:
@@ -39,7 +32,14 @@ jobs:
 
 For a working example, see the [test-source-project](https://github.com/guardian/test-source-project) repository.
 
-## Component Usage
+## Tasks
+
+-   [Measure component usage](#component-usage)
+-   [Package usage](#package-usage)
+-   [TODO] Warn if packages not the same version
+-   [TODO] Check if the project has any local components that share names with Source components
+
+### Component Usage
 
 This part of the action uses [react-scanner](https://github.com/moroshko/react-scanner) to discover which Source components have been used, how many times and what props are utilised. The results are written out to the `.source/output/component-usage.json` file. The following represents an example output:
 
@@ -61,7 +61,7 @@ This part of the action uses [react-scanner](https://github.com/moroshko/react-s
 }
 ```
 
-## Package Usage
+### Package Usage
 
 This part of the action compares the packages found by [react-scanner](https://github.com/moroshko/react-scanner) when discovering component use with the ones defined in the `dependencies` section of the `package.json`. It outputs:
 
