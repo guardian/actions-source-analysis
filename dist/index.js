@@ -7691,7 +7691,8 @@ const analysePackages = () => {
     ];
     const packageJson = JSON.parse((0,external_fs_.readFileSync)('package.json', 'utf-8'));
     const allPackages = Object.keys(packageJson.dependencies).filter((pkg) => pkg.startsWith('@guardian/src-'));
-    const unusedPackages = allPackages.filter((pkg) => !usedPackages.includes(pkg));
+    // TODO: Figure out what to do about `@guardian/src-foundations`
+    const unusedPackages = allPackages.filter((pkg) => !usedPackages.includes(pkg) && pkg !== '@guardian/src-foundations');
     const packageVersions = allPackages.reduce((versions, pkg) => (Object.assign(Object.assign({}, versions), { [pkg]: packageJson.dependencies[pkg] })), {});
     (0,external_fs_.writeFileSync)('.source/output/packages.json', JSON.stringify({
         usedPackages,

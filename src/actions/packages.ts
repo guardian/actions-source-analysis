@@ -33,8 +33,10 @@ export const analysePackages = (): void => {
 		pkg.startsWith('@guardian/src-'),
 	);
 
+	// TODO: Figure out what to do about `@guardian/src-foundations`
 	const unusedPackages = allPackages.filter(
-		(pkg) => !usedPackages.includes(pkg),
+		(pkg) =>
+			!usedPackages.includes(pkg) && pkg !== '@guardian/src-foundations',
 	);
 
 	const packageVersions = allPackages.reduce(
