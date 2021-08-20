@@ -7682,6 +7682,24 @@ const scan = () => __awaiter(void 0, void 0, void 0, function* () {
     yield (0,exec.exec)('npx react-scanner -c .source/scan.config.js');
 });
 
+;// CONCATENATED MODULE: ./src/actions/packages.ts
+
+const analysePackages = () => {
+    const components = JSON.parse((0,external_fs_.readFileSync)('.source/output/component-usage.json', 'utf8'));
+    const usedPackages = [
+        ...new Set(Object.keys(components).map((component) => component.split('/')[2])),
+    ];
+    const packageJson = JSON.parse((0,external_fs_.readFileSync)('package.json', 'utf-8'));
+    const allPackages = Object.keys(packageJson.dependencies).filter((pkg) => pkg.startsWith('@guardian/src-'));
+    const unusedPackages = allPackages.filter((pkg) => !usedPackages.includes(pkg));
+    const packageVersions = allPackages.reduce((versions, pkg) => (Object.assign(Object.assign({}, versions), { [pkg]: packageJson.dependencies[pkg] })), {});
+    (0,external_fs_.writeFileSync)('.source/output/packages.json', JSON.stringify({
+        usedPackages,
+        unusedPackages,
+        packageVersions,
+    }));
+};
+
 ;// CONCATENATED MODULE: ./src/lib/pkg.ts
 var _a;
 const pkg_name = (_a = __nccwpck_require__(306)/* .name */ .u2) !== null && _a !== void 0 ? _a : "Couldn't find package name?";
@@ -7700,6 +7718,7 @@ var src_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _argu
 
 
 
+
 function run() {
     var _a;
     return src_awaiter(this, void 0, void 0, function* () {
@@ -7708,6 +7727,7 @@ function run() {
             (0,core.debug)(`Event name: ${github.context.eventName}`);
             (0,core.debug)(`Action type: ${(_a = github.context.payload.action) !== null && _a !== void 0 ? _a : 'Unknown'}`);
             yield analyseComponents();
+            analysePackages();
         }
         catch (error) {
             if (error instanceof Error) {
