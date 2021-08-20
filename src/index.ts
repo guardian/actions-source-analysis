@@ -1,6 +1,6 @@
 import { debug, info, setFailed } from '@actions/core';
 import { context } from '@actions/github';
-import { analyse } from './actions/analyse';
+import { analyseComponents } from './actions/components';
 import { name } from './lib/pkg';
 
 async function run(): Promise<void> {
@@ -10,7 +10,7 @@ async function run(): Promise<void> {
 		debug(`Event name: ${context.eventName}`);
 		debug(`Action type: ${context.payload.action ?? 'Unknown'}`);
 
-		await analyse();
+		await analyseComponents();
 	} catch (error) {
 		if (error instanceof Error) {
 			setFailed(error.message);

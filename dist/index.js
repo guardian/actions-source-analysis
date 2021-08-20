@@ -7635,7 +7635,7 @@ var github = __nccwpck_require__(5438);
 var external_fs_ = __nccwpck_require__(5747);
 // EXTERNAL MODULE: ./node_modules/@actions/exec/lib/exec.js
 var exec = __nccwpck_require__(1514);
-;// CONCATENATED MODULE: ./src/actions/analyse.ts
+;// CONCATENATED MODULE: ./src/actions/components.ts
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -7648,7 +7648,7 @@ var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _argume
 
 
 
-const analyse = () => __awaiter(void 0, void 0, void 0, function* () {
+const analyseComponents = () => __awaiter(void 0, void 0, void 0, function* () {
     writeConfigFile();
     yield scan();
 });
@@ -7707,7 +7707,7 @@ function run() {
             (0,core.info)(`Running ${pkg_name}`);
             (0,core.debug)(`Event name: ${github.context.eventName}`);
             (0,core.debug)(`Action type: ${(_a = github.context.payload.action) !== null && _a !== void 0 ? _a : 'Unknown'}`);
-            yield analyse();
+            yield analyseComponents();
         }
         catch (error) {
             if (error instanceof Error) {

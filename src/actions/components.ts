@@ -2,7 +2,7 @@ import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import { info } from '@actions/core';
 import { exec } from '@actions/exec';
 
-export const analyse = async (): Promise<void> => {
+export const analyseComponents = async (): Promise<void> => {
 	writeConfigFile();
 	await scan();
 };
