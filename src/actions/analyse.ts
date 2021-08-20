@@ -16,7 +16,11 @@ module.exports = {
 	importedFrom: /^(@guardian\\/src-).*/,
 	getComponentName: ({ imported, moduleName }) => {
 		return moduleName + '\\' + imported;
-	}
+	},
+	processors: [
+		['count-components-and-props', {}],
+		['raw-report', { outputTo: '../.source/source-analysis.json' }],
+	],
 };
 `;
 
