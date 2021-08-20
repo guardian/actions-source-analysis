@@ -15,7 +15,7 @@ module.exports = {
 	includeSubComponents: true,
 	importedFrom: /^(@guardian\\/src-).*/,
 	getComponentName: ({ imported, moduleName }) => {
-		return [moduleName, imported].join("\\");
+		return moduleName + '\\\\' + imported;
 	},
 	processors: [
 		['count-components-and-props', {}],
