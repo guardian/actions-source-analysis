@@ -7663,7 +7663,7 @@ module.exports = {
 		return moduleName + '\\' + imported;
 	},
 	processors: [
-		['count-components-and-props', { outputTo: '../.source/source-analysis.json' }],
+		['count-components-and-props', { outputTo: '../.source/source-analysis.json' }]
 	],
 };
 `;
