@@ -7663,7 +7663,7 @@ module.exports = {
 		return moduleName + '/' + imported;
 	},
 	processors: [
-		['count-components-and-props', { outputTo: '../.source/source-analysis.json' }],
+		['count-components-and-props', { outputTo: '../.source/output/component-usage.json' }],
 	],
 };
 `;
@@ -7675,11 +7675,11 @@ const writeConfigFile = () => {
     (0,core.info)('Creating .source directory');
     (0,external_fs_.mkdirSync)('.source');
     (0,core.info)('Writing config file');
-    (0,external_fs_.writeFileSync)('.source/config.js', config);
+    (0,external_fs_.writeFileSync)('.source/scan.config.js', config);
 };
 const scan = () => __awaiter(void 0, void 0, void 0, function* () {
     (0,core.info)('Running react-scanner');
-    yield (0,exec.exec)('npx react-scanner -c .source/config.js');
+    yield (0,exec.exec)('npx react-scanner -c .source/scan.config.js');
 });
 
 ;// CONCATENATED MODULE: ./src/lib/pkg.ts

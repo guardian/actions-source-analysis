@@ -18,7 +18,7 @@ module.exports = {
 		return moduleName + '/' + imported;
 	},
 	processors: [
-		['count-components-and-props', { outputTo: '../.source/source-analysis.json' }],
+		['count-components-and-props', { outputTo: '../.source/output/component-usage.json' }],
 	],
 };
 `;
@@ -33,10 +33,10 @@ const writeConfigFile = () => {
 	mkdirSync('.source');
 
 	info('Writing config file');
-	writeFileSync('.source/config.js', config);
+	writeFileSync('.source/scan.config.js', config);
 };
 
 const scan = async (): Promise<void> => {
 	info('Running react-scanner');
-	await exec('npx react-scanner -c .source/config.js');
+	await exec('npx react-scanner -c .source/scan.config.js');
 };
