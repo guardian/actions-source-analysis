@@ -15,7 +15,7 @@ module.exports = {
 	includeSubComponents: true,
 	importedFrom: /^(@guardian\\/src-).*/,
 	getComponentName: ({ imported, moduleName }) => {
-		return moduleName + imported;
+		return moduleName + '\\' + imported;
 	},
 	processors: [
 		['count-components-and-props', {}],
@@ -39,6 +39,5 @@ const writeConfigFile = () => {
 
 const scan = async (): Promise<void> => {
 	info('Running react-scanner');
-	await exec('cat .source/config.js');
 	await exec('npx react-scanner -c .source/config.js');
 };
