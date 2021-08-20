@@ -39,4 +39,22 @@ For a working example, see the [test-source-project](https://github.com/guardian
 
 ## Component Usage
 
-This part of the action uses [react-scanner](https://github.com/moroshko/react-scanner) to discover which Source components have been used, how many times and what props are utilised. The results are written out to the `.source/output/component-usage.json` file.
+This part of the action uses [react-scanner](https://github.com/moroshko/react-scanner) to discover which Source components have been used, how many times and what props are utilised. The results are written out to the `.source/output/component-usage.json` file. The following represents an example output:
+
+```json
+{
+    "@guardian/src-radio/Radio": {
+        "instances": 3,
+        "props": {
+            "label": 3,
+            "supporting": 3,
+            "value": 3,
+            "defaultChecked": 1
+        }
+    },
+    "@guardian/src-layout/Container": {
+        "instances": 2,
+        "props": {}
+    }
+}
+```
