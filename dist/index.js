@@ -7636,22 +7636,13 @@ var external_fs_ = __nccwpck_require__(5747);
 // EXTERNAL MODULE: ./node_modules/@actions/exec/lib/exec.js
 var exec = __nccwpck_require__(1514);
 ;// CONCATENATED MODULE: ./src/actions/components.ts
-var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 
 
 
-const analyseComponents = () => __awaiter(void 0, void 0, void 0, function* () {
+const analyseComponents = async () => {
     writeConfigFile();
-    yield scan();
-});
+    await scan();
+};
 // TODO: Make parts of config configurable
 const config = `
 module.exports = {
@@ -7677,10 +7668,10 @@ const writeConfigFile = () => {
     (0,core.info)('Writing config file');
     (0,external_fs_.writeFileSync)('.source/scan.config.js', config);
 };
-const scan = () => __awaiter(void 0, void 0, void 0, function* () {
+const scan = async () => {
     (0,core.info)('Running react-scanner');
-    yield (0,exec.exec)('npx react-scanner -c .source/scan.config.js');
-});
+    await (0,exec.exec)('npx react-scanner -c .source/scan.config.js');
+};
 
 ;// CONCATENATED MODULE: ./src/actions/packages.ts
 
@@ -7693,7 +7684,10 @@ const analysePackages = () => {
     const allPackages = Object.keys(packageJson.dependencies).filter((pkg) => pkg.startsWith('@guardian/src-'));
     // TODO: Figure out what to do about `@guardian/src-foundations`
     const unusedPackages = allPackages.filter((pkg) => !usedPackages.includes(pkg) && pkg !== '@guardian/src-foundations');
-    const packageVersions = allPackages.reduce((versions, pkg) => (Object.assign(Object.assign({}, versions), { [pkg]: packageJson.dependencies[pkg] })), {});
+    const packageVersions = allPackages.reduce((versions, pkg) => ({
+        ...versions,
+        [pkg]: packageJson.dependencies[pkg],
+    }), {});
     (0,external_fs_.writeFileSync)('.source/output/packages.json', JSON.stringify({
         usedPackages,
         unusedPackages,
@@ -7702,43 +7696,31 @@ const analysePackages = () => {
 };
 
 ;// CONCATENATED MODULE: ./src/lib/pkg.ts
-var _a;
-const pkg_name = (_a = __nccwpck_require__(306)/* .name */ .u2) !== null && _a !== void 0 ? _a : "Couldn't find package name?";
+const pkg_name = __nccwpck_require__(306)/* .name */ .u2 ??
+    "Couldn't find package name?";
 
 ;// CONCATENATED MODULE: ./src/index.ts
-var src_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 
 
 
 
 
-function run() {
-    var _a;
-    return src_awaiter(this, void 0, void 0, function* () {
-        try {
-            (0,core.info)(`Running ${pkg_name}`);
-            (0,core.debug)(`Event name: ${github.context.eventName}`);
-            (0,core.debug)(`Action type: ${(_a = github.context.payload.action) !== null && _a !== void 0 ? _a : 'Unknown'}`);
-            yield analyseComponents();
-            analysePackages();
+async function run() {
+    try {
+        (0,core.info)(`Running ${pkg_name}`);
+        (0,core.debug)(`Event name: ${github.context.eventName}`);
+        (0,core.debug)(`Action type: ${github.context.payload.action ?? 'Unknown'}`);
+        await analyseComponents();
+        analysePackages();
+    }
+    catch (error) {
+        if (error instanceof Error) {
+            (0,core.setFailed)(error.message);
         }
-        catch (error) {
-            if (error instanceof Error) {
-                (0,core.setFailed)(error.message);
-            }
-            else {
-                throw error;
-            }
+        else {
+            throw error;
         }
-    });
+    }
 }
 void run();
 
